@@ -38,14 +38,15 @@
         "typescript": "^5.4.5"
     },
     "type": "module",
-    "main": "dist/playcanvas-uploader.mjs",
+    "main": "./dist/playcanvas-uploader.mjs",
+    "types": "./dist/playcanvas-uploader.d.ts",
     "exports": {
         ".": {
             "import": "./dist/playcanvas-uploader.mjs",
-            "require": "./dist/playcanvas-uploader.cjs"
+            "require": "./dist/playcanvas-uploader.cjs",
+            "types": "./dist/playcanvas-uploader.d.ts"
         }
     },
-    "types": "dist/playcanvas-uploader.d.ts",
     "scripts": {
         "build": "rollup -c",
         "build:dts": "tsc src/index.ts --outDir types --allowJs --declaration --emitDeclarationOnly --esModuleInterop",
