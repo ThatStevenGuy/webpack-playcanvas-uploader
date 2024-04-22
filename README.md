@@ -1,15 +1,15 @@
 # PlayCanvas Uploader 🚀
 
-A lightweight script bundle uploader for PlayCanvas, built on top of Webpack.
+A lightweight script bundle uploader for PlayCanvas, built for Webpack.
 
 ## Installation
-Install the package from NPM: 
+Install the package from NPM:
 ```
 npm install --save-dev webpack-playcanvas-uploader
 ```
 *NOTE:* This guide assumes you have Webpack installed and configured to output a script bundle. It also assumes you already have a project set up in PlayCanvas to which you want to automatically upload script bundles.
 
-### Retrieving Your Project Metadata
+### Retrieving Project Metadata
 First, we'll have to retrieve your project's metadata. Open your project in the PlayCanvas Editor, then open your browser's dev tools. Enter the following in the console to retrieve your project's metadata:
 - ```config.accessToken``` - Used to authenticate with the PlayCanvas API.
 - ```config.project.id``` - The numeric ID of your project.
@@ -18,7 +18,7 @@ First, we'll have to retrieve your project's metadata. Open your project in the 
 Now, make a build using Webpack. Drag & drop the resulting script bundle into your PlayCanvas project and select it to view its properties in the inspector panel. Write down the file's ID (the 8-digit number). Now we have everything needed to configure PlayCanvas Uploader.
 
 ### Configuring the Plugin
-Add the PlayCanvas uploader to your `webpack.config.js` as described below. Replace the placeholders with the values you obtained earlier.
+Add PlayCanvas Uploader to your `webpack.config.js` as described below. Replace the placeholders with the values you obtained earlier.
 
 **CommonJS:**
 ```
@@ -60,14 +60,14 @@ export default (env) => {
 };
 ```
 
-You're all set! PlayCanvas Uploader will now automatically upload your script bundles.
+You're all set! PlayCanvas Uploader will now automatically upload your bundles.
 
-### (Optional) Ensure Class Name Persistence
+### (Optional) Script Name Persistence
 
 In case you're using Webpack's terser plugin to minify bundles, it's important to configure the terser plugin to retain class names. By default, PlayCanvas uses a script's class name to uniquely identify each script. As such, it's important to tell the terser plugin to not minify class names. Here's an example config for the terser plugin that works well with PlayCanvas:
 
 ```
-const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     ...

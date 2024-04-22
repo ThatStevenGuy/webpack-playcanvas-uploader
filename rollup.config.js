@@ -21,7 +21,7 @@ switch(process.env.target) {
                 { file: "dist/playcanvas-uploader.cjs", format: "cjs" }
             ],
             plugins: [typescript()]
-        }
+        };
         break;
 }
 
