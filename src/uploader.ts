@@ -27,7 +27,12 @@ export default class Uploader {
                 return;
             }
 
-            const outputPath = compilation.options.output.path;
+            const outputPath = compilation.options.output?.path;
+            if(!outputPath) {
+                console.error(`Upload failed: build output path not specified.`);
+                return;
+            }
+
             const fileEntries = this.config.files;
             for(let length = fileEntries.length, i = 0; i < length; i++) {
                 const fileEntry = fileEntries[i];
