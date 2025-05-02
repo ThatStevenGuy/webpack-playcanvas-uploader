@@ -1,7 +1,7 @@
 {
     "name": "webpack-playcanvas-uploader",
-    "version": "1.1.0",
-    "description": "A lightweight script bundle uploader for PlayCanvas, built on top of Webpack.",
+    "version": "1.1.1",
+    "description": "A lightweight Webpack plugin to automatically upload your bundles to PlayCanvas.",
     "keywords": [
         "playcanvas",
         "uploader",
@@ -25,17 +25,17 @@
     },
     "homepage": "https://github.com/ThatStevenGuy/webpack-playcanvas-uploader",
     "dependencies": {
-        "axios": "^1.6.8",
-        "form-data": "^4.0.0"
+        "axios": "^1.9.0",
+        "form-data": "^4.0.2"
     },
     "devDependencies": {
-        "@rollup/plugin-typescript": "^11.1.6",
-        "@types/node": "^20.12.7",
+        "@rollup/plugin-typescript": "^12.1.2",
+        "@types/node": "^22.15.3",
         "@types/webpack": "^5.28.5",
-        "rollup": "^4.16.0",
-        "rollup-plugin-dts": "^6.1.0",
-        "tslib": "^2.6.2",
-        "typescript": "^5.4.5"
+        "rollup": "^4.40.1",
+        "rollup-plugin-dts": "^6.2.1",
+        "tslib": "^2.8.1",
+        "typescript": "^5.8.3"
     },
     "type": "module",
     "main": "./dist/playcanvas-uploader.mjs",
