@@ -1,38 +1,32 @@
 # PlayCanvas Uploader 🚀
+[![npm version](https://img.shields.io/npm/v/webpack-playcanvas-uploader.svg)](https://www.npmjs.com/package/webpack-playcanvas-uploader)
+[![license](https://img.shields.io/npm/l/webpack-playcanvas-uploader.svg)](LICENSE)
+[![downloads](https://img.shields.io/npm/dm/webpack-playcanvas-uploader.svg)](https://www.npmjs.com/package/webpack-playcanvas-uploader)
 
-A lightweight script bundle uploader for PlayCanvas, built for Webpack.
+A lightweight Webpack plugin to automatically upload your bundles to PlayCanvas.
+
+ℹ️ Looking for the Rollup version? [rollup-plugin-playcanvas-uploader](https://www.npmjs.com/package/rollup-plugin-playcanvas-uploader)
 
 ## Installation
-Install the package from NPM:
 ```
-npm install --save-dev webpack-playcanvas-uploader
+npm install webpack-playcanvas-uploader --save-dev
 ```
-*NOTE:* This guide assumes you have Webpack installed and configured to output a script bundle. It also assumes you already have a project set up in PlayCanvas to which you want to automatically upload script bundles.
 
-### Retrieving Project Metadata
-First, we'll have to retrieve your project's metadata. Open your project in the PlayCanvas Editor, then open your browser's dev tools. Enter the following in the console to retrieve your project's metadata:
-- ```config.accessToken``` - Used to authenticate with the PlayCanvas API.
-- ```config.project.id``` - The numeric ID of your project.
-- ```config.self.branch.id``` - The GUID of the current branch.
-
-Now, make a build using Webpack. Drag & drop the resulting script bundle into your PlayCanvas project and select it to view its properties in the inspector panel. Write down the file's ID (the 8-digit number). Now we have everything needed to configure PlayCanvas Uploader.
-
-### Configuring the Plugin
-Add PlayCanvas Uploader to your `webpack.config.js` as described below. Replace the placeholders with the values you obtained earlier.
+## Usage
+Add the following to your `webpack.config.js`. Make sure to replace the placeholders with the correct values (see project details section below).
 
 **CommonJS:**
 ```
 const PlayCanvasUploader = require("webpack-playcanvas-uploader");
 
 module.exports = {
-    ...
     plugins: [
         new PlayCanvasUploader({
-            projectId: your-project-id,
-            branchId: your-branch-id,
-            accessToken: your-access-token,
+            projectId: yourProjectId,
+            branchId: yourBranchId,
+            accessToken: yourAccessToken,
             files: [
-                { path: "your-bundle-name.js", assetId: your-bundle-id }
+                { path: "dist/main.js", assetId: yourScriptId }
             ]
         })
     ]
@@ -45,46 +39,34 @@ import PlayCanvasUploader from "webpack-playcanvas-uploader";
 
 export default (env) => {
     return {
-        ...
         plugins: [
             new PlayCanvasUploader({
-                projectId: your-project-id,
-                branchId: your-branch-id,
-                accessToken: your-access-token,
+                projectId: yourProjectId,
+                branchId: yourBranchId,
+                accessToken: yourAccessToken,
                 files: [
-                    { path: "your-bundle-name.js", assetId: your-bundle-id }
+                    { path: "dist/main.js", assetId: yourScriptId }
                 ]
             })
         ]
     }
 };
 ```
+## Retrieving Project Details
+Follow these steps to retrieve your PlayCanvas project details. Use these to overwrite the placeholders in your uploader config (outlined above):
+1. Create an empty script in your PlayCanvas project (e.g. `main.js`) and click on it to open the inspector. Copy the ID of the file (a numeric value at the top) and paste it under the `assetId` of the first file in your uploader config. Whenever you make a bundle using Webpack, the contents of your bundle will be uploaded to this script file. Make sure the path of the file (e.g. `dist/main.js`) actually matches the output of your Webpack config.
+2. Open your browser's console and enter `config.project.id`, `config.self.branch.id` and `config.accessToken`. Copy the values over to your uploader config as `projectId`, `branchId` and `accessToken` respectively. Make sure to read the security section below to help keep your access token secret.
 
-You're all set! PlayCanvas Uploader will now automatically upload your bundles.
+You're all set! 🎉 PlayCanvas Uploader will now automatically upload your bundles.
 
-### (Optional) Script Name Persistence
+## Security
+⚠️ **Keep your access token secret!**
 
-In case you're using Webpack's terser plugin to minify bundles, it's important to configure the terser plugin to retain class names. By default, PlayCanvas uses a script's class name to uniquely identify each script. As such, it's important to tell the terser plugin to not minify class names. Here's an example config for the terser plugin that works well with PlayCanvas:
-
-```
-const TerserPlugin = require("terser-webpack-plugin");
-
-module.exports = {
-    ...
-    optimization: {
-        minimize: true,
-        minimizer: [
-            new TerserPlugin({
-                terserOptions: {
-                    compress: false,
-                    keep_fnames: true,
-                    keep_classnames: true
-                }
-            })
-        ]
-    },
-}
-```
+Do not commit it to Git. You can instead store it in a Git-ignored JSON file and import it into your `webpack.config.js`. Alternatively, you can add your access token as an environment variable and use `process.env` to access it (e.g. `process.env.PLAYCANVAS_ACCESS_TOKEN`).
 
 ## Bug Reports & Feature Requests
-Please submit all bug reports & feature requests to the GitHub repo's issues page.
+Bug reports and feature requests welcome — please open an issue on [GitHub](https://github.com/ThatStevenGuy/webpack-playcanvas-uploader/issues).
+
+## License
+MIT © 2025 Steven Derks  
+Distributed under the MIT License. See the [LICENSE](https://github.com/ThatStevenGuy/webpack-playcanvas-uploader/blob/main/LICENSE) file for details.
