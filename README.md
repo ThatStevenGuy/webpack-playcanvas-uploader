@@ -26,7 +26,7 @@ module.exports = {
             branchId: yourBranchId,
             accessToken: yourAccessToken,
             files: [
-                { path: "dist/main.js", assetId: yourScriptId }
+                { path: "main.js", assetId: yourScriptId }
             ]
         })
     ]
@@ -45,7 +45,7 @@ export default (env) => {
                 branchId: yourBranchId,
                 accessToken: yourAccessToken,
                 files: [
-                    { path: "dist/main.js", assetId: yourScriptId }
+                    { path: "main.js", assetId: yourScriptId }
                 ]
             })
         ]
@@ -54,7 +54,7 @@ export default (env) => {
 ```
 ## Retrieving Project Details
 Follow these steps to retrieve your PlayCanvas project details. Use these to overwrite the placeholders in your uploader config (outlined above):
-1. Create an empty script in your PlayCanvas project (e.g. `main.js`) and click on it to open the inspector. Copy the ID of the file (a numeric value at the top) and paste it under the `assetId` of the first file in your uploader config. Whenever you make a bundle using Webpack, the contents of your bundle will be uploaded to this script file. Make sure the path of the file (e.g. `dist/main.js`) actually matches the output of your Webpack config.
+1. Create an empty script in your PlayCanvas project (e.g. `main.js`) and click on it to open the inspector. Copy the ID of the file (a numeric value at the top) and paste it under the `assetId` of the first file in your uploader config. Whenever you make a bundle using Webpack, the contents of your bundle will be uploaded to this script file. Make sure the path of the file (e.g. `main.js`) actually matches the path of the bundle created by Webpack. The uploader will search for the bundle in your Webpack's output directory, so there's no need to include the output directory itself in the file path.
 2. Open your browser's console and enter `config.project.id`, `config.self.branch.id` and `config.accessToken`. Copy the values over to your uploader config as `projectId`, `branchId` and `accessToken` respectively. Make sure to read the security section below to help keep your access token secret.
 
 You're all set! 🎉 PlayCanvas Uploader will now automatically upload your bundles.
